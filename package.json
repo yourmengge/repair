@@ -1,0 +1,22 @@
+{
+  "name": "insurance",
+  "version": "1.0.0",
+  "description": "智救通保险web端",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourmengge/insurance.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yourmengge/insurance/issues"
+  },
+  "homepage": "https://github.com/yourmengge/insurance#readme",
+  "dependencies": {
+    "@types/angular": "^1.6.16"
+  }
+}

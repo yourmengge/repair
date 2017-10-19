@@ -1,0 +1,18 @@
+<div class="login" ng-controller="loginCtrl">
+    <img src="../img/login.jpeg" class="login_bg" alt="">
+
+    <div class="login_input_div">
+        <img src="../img/logo.png" alt="" class="logo">
+        <div class="input-group">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+            <input type="text" class="form-control" id="password" name="password" placeholder="请输入账号" ng-model="user">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+            <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码" ng-model="password">
+        </div>
+        <div>
+            <button type="button" class="btn btn-primary login_btn" ng-click="login()">登录</button>
+        </div>
+    </div>
+</div>

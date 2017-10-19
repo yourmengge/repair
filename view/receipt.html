@@ -1,0 +1,171 @@
+<div ng-controller="receiptCtrl" class="right_content" ng-init="initData()">
+    <div>
+        <ul class="nav nav-tabs">
+            <li role="presentation" ng-class="selectTab == 1?'active':''" ng-click="tab(1)"><a>开票列表</a></li>
+            <li role="presentation" ng-class="selectTab == 2?'active':''" ng-click="tab(2)"><a>待收款</a></li>
+            <li role="presentation" ng-class="selectTab == 3?'active':''" ng-click="tab(3)"><a>已收款</a></li>
+        </ul>
+        <i class="glyphicon glyphicon-repeat refresh" ng-click="refresh();"></i>
+        <div class="receipt_search_p">
+            <div class="float_left">
+                订单日期：
+            </div>
+            <div class="input-group col-xs-2 float_left">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                <input type="date" class="form-control" id="startDay" name="password" ng-model="startTime">
+            </div>
+            <div class="float_left">
+                &emsp;至&emsp;
+            </div>
+            <div class="input-group col-xs-2 float_left">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                <input type="date" class="form-control" id="endDay" name="password" ng-model="endTime">
+            </div>
+            <div class="float_left" ng-hide="selectTab != 1">
+                &emsp;发票状态：
+            </div>
+            <div class="btn-group float_left" ng-hide="selectTab != 1">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      {{statusName}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="a in statusTexts" ng-click="select(a)"><a>{{a.name}}</a></li>
+                </ul>
+            </div>
+            <div class="float_left" ng-hide="selectTab != 1">
+                &emsp;收费方式：
+            </div>
+            <div class="btn-group float_left" ng-hide="selectTab != 1">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      {{chargeModeName}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="a in chargeModeTexts" ng-click="selectChargeMode(a)"><a>{{a.name}}</a></li>
+                </ul>
+            </div>
+            <div class="btn-group float_left col-lg-2">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{searchName}} <span class="caret"></span>
+                      </button>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="a in searchTexts" ng-click="selectSearch(a)"><a>{{a.name}}</a></li>
+                </ul>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="{{searchPlaceHolder}}" ng-model="keyword">
+                </div>
+
+            </div>
+            <div class="float_left">
+                <button type="button" class="btn btn-primary" ng-click="search()">查询</button>
+            </div>
+        </div>
+        <div ng-hide="selectTab == 1">
+            <button type="button" class="btn btn-primary" ui-sref='main.receipt.batch' ng-hide="selectTab == 3">导入收款信息</button>
+            <button type="button" class="btn btn-primary" ng-click="toexcel()" ng-hide="selectTab != 3">导出订单详情</button>
+            <button type="button" class="btn btn-primary" ng-hide="selectTab == 3" ng-click="batch_receipt()" ng-disabled="checked.length == 0?'disabled':''">批量确认收款</button>
+        </div>
+        <div class="order_count_bar">
+            订单（共{{count}}条）
+        </div>
+        <div class="list_table" ng-hide="list.length == 0">
+            <div class="list_table_tr">
+                <div style="flex:0.2" ng-hide="selectTab != 2">
+                    <input type="checkbox" ng-click="selectAll()" ng-checked="all">
+                </div>
+                <div>
+                    订单号
+                </div>
+                <div>
+                    订单日期
+                </div>
+                <div>
+                    所属公司
+                </div>
+                <div>
+                    保险公司
+                </div>
+                <div>
+                    车牌号
+                </div>
+                <div>
+                    施救单位
+                </div>
+                <div style="flex:0.5">
+                    收费方式
+                </div>
+                <div>
+                    施救费用（元）
+                </div>
+                <div style="flex:0.5" ng-hide="selectTab != 1">
+                    发票状态
+                </div>
+                <div>
+                    操作
+                </div>
+            </div>
+            <div ng-repeat="a in list">
+                <div class="list_table_td {{openDetail == $index?'list_active':''}}">
+                    <div style="flex:0.2" ng-hide="selectTab != 2">
+                        <input type="checkbox" ng-checked="select_one" ng-click="selectOne(a.orderNo)">
+                    </div>
+                    <div>
+                        {{a.orderNo}}
+                    </div>
+                    <div>
+                        {{a.createTime | ToLocal}}
+                    </div>
+                    <div>
+                        {{a.receiptName}}
+                    </div>
+                    <div>
+                        {{a.companyName}}
+                    </div>
+                    <div>
+                        {{a.carNo}}
+                    </div>
+                    <div>
+                        {{a.grabFleetName}}
+                    </div>
+                    <div style="flex:0.5">
+                        {{a.chargeModeDesc}}
+                    </div>
+                    <div>
+                        {{a.rescueFee | Price}}
+                    </div>
+                    <div style="flex:0.5" ng-hide="selectTab != 1">
+                        {{a.settleStatusDesc}}
+                    </div>
+                    <div>
+                        <button class="btn btn-link" ui-sref='main.receipt.settlement' ng-click="payment_detail(a.orderNo)">结算详情</button>
+                        <button class="btn btn-link {{(a.settleStatus == 414 || a.settleStatus == 416)?'green_font':a.settleStatus == 422?'':'red_font'}}" ui-sref='main.receipt.takePhoto' ng-click="takePhoto(a.orderNo,a.settleStatus,a.remark)" ng-hide="selectTab != 1">
+                            {{(a.settleStatus == 414 || a.settleStatus == 416)?'提交发票':a.settleStatus == 422?'查看发票':'重新提交'}}
+                        </button>
+                        <button class="btn btn-link" ng-click="submit_payment(a.orderNo)" ng-hide="selectTab != 2">确认收款</button>
+                    </div>
+                </div>
+            </div>
+            <div class="page_div">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        <!-- 首页，相当于选中第一页，传值1 -->
+                        <li>
+                            <a aria-label="Previous" ng-click="goPage(1)">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                        </li>
+                        <!-- 展示页数，array为1到总页数的数组，轮询数组，根据条件隐藏不必要的页数 -->
+                        <li class="{{current_page == a?'active':''}}" ng-repeat="a in array" ng-hide="a > backPage || a < frontPage"><a ng-click="goPage(a)">{{a}}</a></li>
+                        <!-- 尾页，相当于选中总页数的值 -->
+                        <li>
+                            <a aria-label="Next" ng-click="goPage(totlePage)">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+
+        </div>
+        <div ui-view class="mini_view"></div>
+    </div>

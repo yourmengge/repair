@@ -1,0 +1,84 @@
+<div ng-controller="messageCtrl" class="right_content" ng-init="initData()">
+    <div>
+        <div class="receipt_search_p">
+            <div class="float_left">
+                &emsp;消息类型：
+            </div>
+            <div class="btn-group float_left">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      {{statusName}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="a in statusTexts" ng-click="select(a)"><a>{{a.name}}</a></li>
+                </ul>
+            </div>
+            <div class="btn-group float_right col-lg-2">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="请输入订单号" ng-model="keyword">
+                    <span class="input-group-addon" ng-click="search()" style="cursor:pointer"><span class="glyphicon glyphicon-search"></span></span>
+                </div>
+            </div>
+        </div>
+        <div class="list_table">
+            <div class="list_table_tr">
+                <div>
+                    消息类型
+                </div>
+                <div>
+                    订单号
+                </div>
+                <div>
+                    内容
+                </div>
+                <div>
+                    通知时间
+                </div>
+                <div>
+                    操作
+                </div>
+            </div>
+            <div ng-repeat="a in list">
+                <div class="list_table_td">
+                    <div>
+                        {{a.orderNo}}
+                    </div>
+                    <div>
+                        {{a.createTime | ToLocal}}
+                    </div>
+                    <div>
+                        {{a.receiptName}}
+                    </div>
+                    <div>
+                        {{a.companyName}}
+                    </div>
+
+                    <div>
+                        <button class="btn btn-link" ui-sref='main.receipt.settlement' ng-click="payment_detail(a.orderNo)">报价</button>
+                    </div>
+                </div>
+            </div>
+            <div class="page_div">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        <!-- 首页，相当于选中第一页，传值1 -->
+                        <li>
+                            <a aria-label="Previous" ng-click="goPage(1)">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                        </li>
+                        <!-- 展示页数，array为1到总页数的数组，轮询数组，根据条件隐藏不必要的页数 -->
+                        <li class="{{current_page == a?'active':''}}" ng-repeat="a in array" ng-hide="a > backPage || a < frontPage"><a ng-click="goPage(a)">{{a}}</a></li>
+                        <!-- 尾页，相当于选中总页数的值 -->
+                        <li>
+                            <a aria-label="Next" ng-click="goPage(totlePage)">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+
+        </div>
+        <div ui-view class="mini_view"></div>
+    </div>

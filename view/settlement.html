@@ -1,0 +1,168 @@
+<div ng-controller="settlementCtrl" class="right_content" ng-init="initData()">
+    <div class="page-header" style="margin:0">
+        <h1><small>结算详情</small></h1>
+        <button class="back_img" ng-click="back();"></button>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">订单信息</div>
+        <div class="panel-body">
+            <div class="detail_div">
+                <div class="detail_div_line">
+                    <div>
+                        订单号：
+                    </div>
+                    <div>
+                        {{detail.orderNo}}
+                    </div>
+                    <div>
+                        订单日期：
+                    </div>
+                    <div>
+                        {{detail.createTime | ToLocal}}
+                    </div>
+                    <div>
+                        所属公司：
+                    </div>
+                    <div>
+                        {{detail.receiptName}}
+                    </div>
+                </div>
+                <div class="detail_div_line">
+                    <div>
+                        保险公司：
+                    </div>
+                    <div>
+                        {{detail.companyName}}
+                    </div>
+                    <div>
+                        案件号：
+                    </div>
+                    <div>
+                        {{detail.caseNo}}
+                    </div>
+                    <div>
+                        案件地区：
+                    </div>
+                    <div>
+                        {{detail.areaDesc}}
+                    </div>
+                </div>
+
+                <div class="detail_div_line">
+                    <div>
+                        车牌号：
+                    </div>
+                    <div>
+                        {{detail.carNo}}
+                    </div>
+                    <div>
+                        救援车辆：
+                    </div>
+                    <div>
+                        {{detail.rescueCarDesc}}
+                    </div>
+                    <div>
+                        车队名称：
+                    </div>
+                    <div>
+                        {{detail.fleetName}}
+                    </div>
+                </div>
+                <div class="detail_div_line">
+                    <div>
+                        收费方式：
+                    </div>
+                    <div>
+                        {{detail.chargeModeDesc}}
+                    </div>
+                    <div>
+                        <button ng-disabled="isAuth?'':'disabled'" class="btn btn-link" ng-click="goto(detail.orderNo)">
+                            授权委托书：<span ng-hide="detail.chargeMode==1">{{isAuth?'已授权':'未授权'}}</span> 
+                        </button>
+                    </div>
+                    <div>
+                    </div>
+                    <div>
+                        <button class="btn btn-link" ui-sref='main.receipt.orderDetail'>
+                            查看订单详情
+                        </button>
+                    </div>
+                    <div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">报价信息</div>
+        <div class="panel-body">
+            <div class="detail_div ">
+                <div class="car_div" ng-repeat="a in detail.assignFeeList">
+                    <div class="bottom_line">
+                        {{a.carRemark}}
+                    </div>
+                    <div class="detail_div_line ">
+                        <div>
+                            派遣司机：
+                        </div>
+                        <div>
+                            {{a.driverName}}
+                        </div>
+                        <div>
+                            行驶里程：
+                        </div>
+                        <div>
+                            {{a.distance | gongli}}公里
+                        </div>
+                        <div>
+                            {{a.carTypeDesc}}费用：
+                        </div>
+                        <div>
+                            {{a.fee | Price}}元
+                        </div>
+                    </div>
+                </div>
+                <div class="car_div">
+                    <div class="bottom_line">
+                        其他费用
+                    </div>
+                    <div class=" ">
+                        <div ng-repeat="a in detail.otherFeeList" class="other_fee_div">
+                            {{a.feeName}}：{{a.fee | Price}}元
+                        </div>
+
+                    </div>
+                </div>
+                <div class="car_div" style="padding-bottom: 9px;">
+                    <div class="fee_line " style="text-align:center">
+                        <div>
+                            施救费用：{{detail.rescueFee | Price}}元
+                        </div>
+                        <div>
+                            付款金额：{{detail.settleFee | Price}}元
+                            <p style="font-size: 11px;margin-top: 11px;color:#23527c">
+                                {{detail.chargeDesc}}
+                            </p>
+
+                        </div>
+                        <div>
+                            利润：{{detail.profit | Price}}元
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">发票照片</div>
+        <div class="panel-body">
+            <div class="detail_div">
+                <div class="detail_div_line">
+                    <img ng-click="openImg(a.path)" ng-src="{{a.zoomOutView}}" alt="" ng-repeat="a in detail.pictures">
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

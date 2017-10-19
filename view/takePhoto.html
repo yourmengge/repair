@@ -1,0 +1,28 @@
+<div class="takePhoto_div" ng-controller="takePhotoCtrl" ng-init="initData()">
+    <div class="page-header" style="margin:0">
+        <h1><small>提交发票</small></h1>
+        <button class="back_img" ng-click="back();"></button>
+    </div>
+    <div class="order_count_bar" ng-hide="settleStatus == 414 || settleStatus == 416">
+        {{message}}
+    </div>
+    <div class="panel panel-default upload_photo_div">
+        <div class="panel-heading">发票照片</div>
+        <div class="panel-body" style="height:300px;">
+            <label class="btn btn-primary" for="photo" ng-hide="pic_count >= 2 || settleStatus == 422">选择照片</label>
+            <br>
+            <div class="photo" ng-repeat="item in thumb">
+                <i class="glyphicon glyphicon-remove photo_del" ng-hide="settleStatus == 422" ng-click="img_del($index,item)"></i>
+                <img ng-click="openImg(item.imgSrc)" ng-src="{{item.imgSrc}}" alt="">
+
+            </div>
+
+            <input  type="file" style="opacity: 0;display:none" id="photo" onchange="angular.element(this).scope().img_upload(this.files)"
+                accept="image/png, image/jpeg, image/gif, image/jpg">
+        </div>
+    </div>
+    <div class="more_div">
+        <button type="button" class="btn btn-success" ng-click="submit()" ng-disabled="pic_count == 0?'disabled':''" ng-hide="settleStatus == 422">提&emsp;交</button>
+    </div>
+
+</div>

@@ -1,0 +1,341 @@
+<div ng-controller="orderDetailCtrl" class="right_content orderDetail" ng-init="initData()">
+    <div class="page-header" style="margin:0">
+        <h1><small>订单详情</small></h1>
+        <button class="back_img" ng-click="back();"></button>
+    </div>
+    <div style="margin:0">
+        <h2><small>订单信息</small></h2>
+    </div>
+    <div class="detail_div">
+        <div class="detail_div_line">
+            <div>
+                订单号：
+            </div>
+            <div>
+                {{detail.orderNo}}
+            </div>
+            <div>
+                订单状态：
+            </div>
+            <div>
+                {{detail.statusDesc}}
+            </div>
+            <div>
+                订单类型：
+            </div>
+            <div>
+                {{detail.orderTypeDesc}}
+            </div>
+        </div>
+        <div class="detail_div_line">
+            <div>
+                订单来源：
+            </div>
+            <div>
+                {{detail.caseSource}}
+            </div>
+            <div>
+                标的/三者：
+            </div>
+            <div>
+                {{detail.insuranceTypeDesc}}
+            </div>
+            <div>
+                下单时间：
+            </div>
+            <div>
+                {{detail.createTime}}
+            </div>
+        </div>
+
+        <div class="detail_div_line">
+            <div>
+                车主姓名：
+            </div>
+            <div>
+                {{detail.accidentDriverName}}
+            </div>
+            <div>
+                车主电话：
+            </div>
+            <div>
+                {{detail.accidentDriverPhone}}
+            </div>
+            <div>
+                车牌号：
+            </div>
+            <div>
+                {{detail.accidentCarNoDesc}}
+            </div>
+        </div>
+        <div class="detail_div_line">
+            <div>
+                救援车类型：
+            </div>
+            <div>
+                {{detail.carTypeDesc}}
+            </div>
+            <div>
+                收费方式：
+            </div>
+            <div>
+                {{detail.chargeModeDesc}}
+            </div>
+            <div>
+                下单备注：
+            </div>
+            <div>
+                {{detail.remark}}
+            </div>
+        </div>
+        <div class="detail_div_line">
+
+            <div>
+                推修类型：
+            </div>
+            <div>
+                {{detail.pushFixTypeDesc}}
+            </div>
+            <div>
+                车辆信息：
+            </div>
+            <div>
+                {{detail.carSizeDesc}}
+            </div>
+            <div>
+                取消订单备注：
+            </div>
+            <div>
+                {{detail.cancelCause}}
+            </div>
+        </div>
+    </div>
+
+    <div class="border_top" style="margin:0">
+        <h2><small>机构信息</small></h2>
+    </div>
+    <div class="detail_div">
+        <div class="detail_div_line">
+            <div>
+                案件来源：
+            </div>
+            <div>
+                {{detail.caseSource}}
+            </div>
+            <div>
+                案件号：
+            </div>
+            <div>
+                {{detail.caseNo}}
+            </div>
+            <div>
+            </div>
+            <div>
+            </div>
+        </div>
+        <div class="detail_div_line">
+            <div>
+                查勘员：
+            </div>
+            <div>
+                {{detail.inspectorName}}
+            </div>
+            <div>
+                查勘电话：
+            </div>
+            <div>
+                {{detail.inspectorPhone}}
+            </div>
+            <div>
+                查勘员ID：
+            </div>
+            <div>
+                {{detail.inspectorUserId}}
+            </div>
+        </div>
+    </div>
+
+    <div class="border_top" style="margin:0">
+        <h2><small>施救单位</small></h2>
+    </div>
+    <div class="detail_div">
+        <div class="detail_div_line">
+            <div>
+                接单车队：
+            </div>
+            <div>
+                {{detail.grabFleetName}}
+            </div>
+            <div>
+            </div>
+            <div>
+            </div>
+            <div>
+            </div>
+            <div>
+            </div>
+        </div>
+        <div class="detail_div_line">
+            <div>
+                调度姓名：
+            </div>
+            <div>
+                {{detail.grabUserName}}
+            </div>
+            <div>
+                调度电话：
+            </div>
+            <div>
+                {{detail.grabPhone}}
+            </div>
+            <div>
+                调度ID：
+            </div>
+            <div>
+                {{detail.grabUserId}}
+            </div>
+        </div>
+    </div>
+
+
+    <div class="border_top" style="margin:0">
+        <h2><small>地图位置</small></h2>
+    </div>
+    <div class="detail_div">
+        <div class="detail_div_line">
+            <div>
+                事故地点：
+            </div>
+            <div>
+                {{detail.accidentAddress}}
+            </div>
+            <div>
+                经度：
+            </div>
+            <div>
+                {{detail.accidentLongitude}}
+            </div>
+            <div>
+                纬度：
+            </div>
+            <div>
+                {{detail.accidentLatitude}}
+            </div>
+            <div>
+                拍照事故地点：
+            </div>
+            <div>
+                {{detail.accidentAddressPicture}}
+            </div>
+        </div>
+        <div class="detail_div_line">
+            <div>
+                拖送目的地：
+            </div>
+            <div>
+                {{detail.fixAddress}}
+            </div>
+            <div>
+                经度：
+            </div>
+            <div>
+                {{detail.fixLongitude}}
+            </div>
+            <div>
+                纬度：
+            </div>
+            <div>
+                {{detail.fixLatitude}}
+            </div>
+            <div>
+                拍照维修地点：
+            </div>
+            <div>
+                {{detail.fixAddressPicture}}
+            </div>
+        </div>
+    </div>
+
+    <div class="border_top" style="margin:0">
+        <h2><small>施救车队</small></h2>
+    </div>
+    <div class="detail_div" ng-repeat="a in detail.assignDriverses">
+        <div class="detail_div_line">
+            <div>
+                任务状态：
+            </div>
+            <div>
+                {{a.taskFlagDesc}}
+            </div>
+            <div>
+                车辆类型：
+            </div>
+            <div>
+                {{a.carRemark}}
+            </div>
+            <div>
+                派遣语音备注：
+            </div>
+            <div>
+                <audio ng-src="a.remarkOfVoice"></audio>
+            </div>
+        </div>
+        <div class="detail_div_line">
+            <div>
+                派遣司机：
+            </div>
+            <div>
+                {{a.driverName}}
+            </div>
+            <div>
+                司机电话：
+            </div>
+            <div>
+                {{a.phone}}
+            </div>
+            <div>
+                司机ID：
+            </div>
+            <div>
+                {{a.driverUserId}}
+            </div>
+        </div>
+        <div class="detail_div_line">
+            <div>
+                派遣司机时间：
+            </div>
+            <div>
+                {{a.createTime | ToLocal}}
+            </div>
+            <div>
+                司机接单时间：
+            </div>
+            <div>
+                {{a.departureTime | ToLocal}}
+            </div>
+            <div>
+            </div>
+            <div>
+            </div>
+        </div>
+        <div class="detail_div_line last_line">
+            <div>
+                到达现场时间：
+            </div>
+            <div>
+                {{a.accidentReachTime | ToLocal}}
+            </div>
+            <div>
+                施救完成时间：
+            </div>
+            <div>
+                {{a.taskEndTime | ToLocal}}
+            </div>
+            <div>
+            </div>
+            <div>
+            </div>
+        </div>
+
+    </div>
+</div>

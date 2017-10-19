@@ -1,0 +1,155 @@
+<div class="batch" ng-controller="batchCtrl" ng-init="initData()">
+    <div class="batch_tab">
+        <span class="span1 {{clicked == 1?'span1_click':''}}" ng-click="clicked = 1">
+            导入收款信息
+        </span>
+        <span class="span1 {{clicked == 2?'span1_click':''}}" ng-click="clicked = 2">
+            未匹配信息
+        </span>
+
+    </div>
+    <button class="back_img" ng-click="back();"></button>
+    <div ng-hide="clicked == 2">
+        <div class="upload_div">
+            <p>
+                <input type="file" id="file" class="input_file" onchange="angular.element(this).scope().file()" >
+                <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-cloud-upload"></i> 上传文件</button>
+            </p>
+            <p>点击选择上传文件</p>
+            <p ng-hide="fileName == ''">文件名：{{fileName}}</p>
+        </div>
+        <div class="batch_table" ng-hide="batchList == ''">
+            <table class="table table-bordered">
+                <tr>
+                    <th>
+                        贷方发生额（元）
+                    </th>
+                    <th>
+                        摘要
+                    </th>
+                    <th>
+                        对方单位名称
+                    </th>
+                </tr>
+                <tr ng-repeat="a in batchList">
+                    <td>
+                        {{a.amountStr}}
+                    </td>
+                    <td>
+                        {{a.carNo}}
+                    </td>
+                    <td>
+                        {{a.companyName}}
+                    </td>
+                </tr>
+            </table>
+            <button class="btn btn-primary" ng-click="confirm_batch()">
+                    提交匹配
+                </button>
+        </div>
+    </div>
+    <div ng-hide="clicked == 1">
+        <div class="unmatch_title">
+            <ul class="nav nav-tabs">
+                <li role="presentation" class="{{clickIndex != $index ?'':'active'}}" ng-repeat="b in unMatchFile" ng-click="select_file(b,$index)">
+                    <a>
+                        {{b.fileName}} &emsp;
+                        <i ng-hide="clickIndex != $index" class="glyphicon glyphicon-remove" style="color:#666" ng-click="delete_file(b)"></i>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+        <div class="batch_table">
+            <table class="table table-bordered">
+                <tr>
+                    <th>
+                        贷方发生额（元）
+                    </th>
+
+                    <th>
+                        摘要
+                    </th>
+                    <th>
+                        对方单位名称
+                    </th>
+                    <th>
+                        操作
+                    </th>
+                </tr>
+                <tr ng-repeat="a in unMatchList">
+                    <td>
+                        {{a.amountStr}}
+                    </td>
+                    <td>
+                        {{a.carNo}}
+                    </td>
+                    <td>
+                        {{a.companyName}}
+                    </td>
+                    <td>
+                        <button class="btn btn-link" ng-click="match_order(a.carNo,a.id)">订单匹配</button>
+                        <button class="btn btn-link" ng-click="delete_order_detail(a,unMatchList)">删除</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="bg {{hide_div == true?'display_none':''}}"></div>
+    <div class="panel panel-default alert_panel {{hide_div == true?'display_none':''}}">
+        <div class="panel-heading">订单匹配<i class="glyphicon glyphicon-remove" style="float: right;" ng-click="close_panel()"></i></div>
+        <div class="panel-body">
+            <div class="detail_div">
+                <div class="list_table_tr list_active">
+                    <div>
+                        订单号
+                    </div>
+                    <div>
+                        订单日期
+                    </div>
+                    <div>
+                        所属公司
+                    </div>
+                    <div>
+                        保险公司
+                    </div>
+                    <div>
+                        车牌号
+                    </div>
+                    <div>
+                        施救费用（元）
+                    </div>
+                    <div>
+                        操作
+                    </div>
+                </div>
+                <div ng-repeat="a in carNo_list">
+                    <div class="list_table_td">
+                        <div>
+                            {{a.orderNo}}
+                        </div>
+                        <div>
+                            {{a.createTime | ToLocal}}
+                        </div>
+                        <div>
+                            {{a.receiptName}}
+                        </div>
+                        <div>
+                            {{a.caseSource}}
+                        </div>
+                        <div>
+                            {{a.accidentCarNo}}
+                        </div>
+                        <div>
+                            {{a.rescueFee | Price}}
+                        </div>
+                        <div>
+                            <button class="btn btn-link" ng-click="match(a.orderNo)">匹配</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

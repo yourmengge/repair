@@ -1,0 +1,48 @@
+<div ng-controller="mainCtrl" class="main" ng-init="initData()">
+    <div class="left_menu">
+        <span class="title_bar_sapn">后台结算系统</span>
+        <ul class="nav nav-pills nav-stacked">
+            <li role="presentation" class="{{clicked == 1?'active':''}}" ui-sref='main.message' ng-click="click(1)">
+                <a class="left_menu_a">消息管理</a>
+            </li>
+            <li role="presentation" class="{{clicked == 2?'active':''}}" ui-sref='main.orderlist' ng-click="click(2)">
+                <a class="left_menu_a">订单列表</a>
+            </li>
+            <li role="presentation" class="{{clicked == 3?'active':''}}" ui-sref='main.shop4smsg' ng-click="click(3)">
+                <a class="left_menu_a">外修厂管理</a>
+            </li>
+            <li role="presentation" class="{{clicked == 4?'active':''}}" ui-sref='main.damage' ng-click="click(4)">
+                <a class="left_menu_a">定损员管理</a>
+            </li>
+            <li role="presentation" class="{{clicked == 5?'active':''}}" ui-sref='main.component' ng-click="click(5)">
+                <a class="left_menu_a">零部件分类</a>
+            </li>
+            <li role="presentation" class="{{clicked == 6?'active':''}}" ui-sref='main.fitting' ng-click="click(6)">
+                <a class="left_menu_a">配件管理</a>
+            </li>
+        </ul>
+    </div>
+    <div class="right_part">
+        <div class="right_title">
+            <i class="glyphicon glyphicon-user admin_icon" id="admin"> 45345345 </i>
+            <div class="admin_div">
+                <p style="border-bottom: solid 1px #dcdcdc;">
+                    账号管理
+                </p>
+                <p>
+                    退出登录
+                </p>
+            </div>
+        </div>
+
+        <div class="right_menu" ui-view>
+
+        </div>
+    </div>
+
+</div>
+<script>
+    $('#admin').click(function(){
+        $('.admin_div').toggle();
+    })
+</script>
